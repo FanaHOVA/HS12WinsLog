@@ -1,7 +1,7 @@
 import praw #Reddit API
 import json
 
-user_agent = ("HS 12 Wins Stats 0.2 by /u/FanaHOVA "
+user_agent = ("HS 12 Wins Stats 0.3 by /u/FanaHOVA "
 			   "github.com/FanaHOVA/HS12WinsLog")
 
 r = praw.Reddit(user_agent=user_agent)
@@ -10,8 +10,11 @@ submissions = r.get_subreddit('12winArenaLog').get_hot(limit=10) #Replace with g
 f = open("database.json","r+")
 db = json.load(f)
 
+cardsx = ["alexstrasza", "explosion", "execute", "explosive", "axe", "hex", "jaraxxus", "maexxna", "onyxia", "naxxramas"] #Only instances in which a x is in the card name; if not, must be a 2x/3x
 
 for each in submissions:
+
+	title = each.title.lower() #Title of the post, usually is: [W-L] Class [DD-MM-YYYY]
 
 	if "meta" in title:
 		pass #Disregard meta posts 
@@ -23,22 +26,40 @@ for each in submissions:
 	for line in op.split("\n"): #Split each line to analyze if it's a card or not
 		if line.isspace(): #Skip empty lines
 			pass
-		if len(line) > 30: #No card name is that long, probably a url or a note about the deck
+		elif len(line) > 30: #No card name is that long, probably a url or a note about the deck
 			pass
 		elif len(line) < 5: #No card name is that short
 			pass
-		elif "!" in line or "?" in line or "http" in line: #Skips imgur screens and "Decklist:", "12 wins baby!" etc
+		elif "!" in line or "?" in line or "http" in line: #Skips imgur screens and "12 wins baby!" etc
 			pass 
 		elif "prizes" in line or "rewards" in line: #Prizes are listed at the end of the post after the deck, you can break from here
-			break    
-		else: #If it passes all the checks, add to the decklist
-			split = line.split(":")
-			card = line[0]
-			copies = line[1]
-			for i in range(copies): #Add
-				deck.append(card)
+			break
+		else: #Must be a "Boulderfist Ogre 2x" or something like that. 
+			bits = line.split(" ")
+			for bit in bits:
+				count = 1
+				if "x" in bit and bit not in cardsx:
+					if "2" in bit:
+						count = 2
+					elif "3" in bit:
+						count = 3
+					elif "4" in bit:
+						count = 4
+					else:
+						pass
+					bits.remove(bit)
+				elif "*" in bit:
+					bits.remove(bit)
+				else:
+					pass
 
-	title = each.title.lower() #Title of the post, usually is: [W-L] Class [DD-MM-YYYY]
+			card = " ".join(bits).title()
+
+			for i in range(count):
+				if card == "" or card == "Deck:" or card == "Decklist:":
+					pass
+				else:
+					deck.append(card)
 
 	race = "" #Used to create deck ID
 

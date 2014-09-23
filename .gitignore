@@ -17,6 +17,9 @@ $RECYCLE.BIN/
 #Python exec
 *.pyc
 
+#Database template
+db.json
+
 # =========================
 # Operating System Files
 # =========================
