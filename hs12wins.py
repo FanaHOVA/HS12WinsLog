@@ -28,7 +28,7 @@ for each in submissions:
 			pass
 		elif len(line) > 30: #No card name is that long, probably a url or a note about the deck
 			pass
-		elif len(line) < 5: #No card name is that short
+		elif len(line) < 5 and "hex" not in line: #No other card name is that short
 			pass
 		elif "!" in line or "?" in line or "http" in line: #Skips imgur screens and "12 wins baby!" etc
 			pass 
