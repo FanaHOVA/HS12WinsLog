@@ -26,7 +26,7 @@ for each in submissions:
 	for line in op.split("\n"): #Split each line to analyze if it's a card or not
 		if line.isspace(): #Skip empty lines
 			pass
-		elif len(line) > 30: #No card name is that long, probably a url or a note about the deck
+		elif len(line) > 30: #No card name is that long, must be a note
 			pass
 		elif len(line) < 5 and "hex" not in line: #No other card name is that short
 			pass
@@ -36,24 +36,22 @@ for each in submissions:
 			break
 		else: #Must be a "Boulderfist Ogre 2x" or something like that. 
 			bits = line.split(" ")
+
+			count = 1
 			for bit in bits:
-				count = 1
 				if "x" in bit and bit not in cardsx:
+
 					if "2" in bit:
 						count = 2
 					elif "3" in bit:
 						count = 3
 					elif "4" in bit:
 						count = 4
-					else:
-						pass
 					bits.remove(bit)
 				elif "*" in bit:
 					bits.remove(bit)
-				else:
-					pass
 
-			card = " ".join(bits).title()
+			card = " ".join(bits).title().rstrip(" ")
 
 			for i in range(count):
 				if card == "" or card == "Deck:" or card == "Decklist:":
