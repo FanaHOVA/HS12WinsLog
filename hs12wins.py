@@ -32,7 +32,7 @@ for each in submissions:
 			pass
 		elif "!" in line or "?" in line or "http" in line: #Skips imgur screens and "12 wins baby!" etc
 			pass 
-		elif "prizes" in line or "rewards" in line: #Prizes are listed at the end of the post after the deck, you can break from here
+		elif "prizes" in line or "rewards" in line or "notes" in line or "results" in line: #Prizes are listed at the end of the post after the deck, you can break from here
 			break
 		else: #Must be a "Boulderfist Ogre 2x" or something like that. 
 			bits = line.split(" ")
@@ -54,7 +54,7 @@ for each in submissions:
 			card = " ".join(bits).title().rstrip(" ")
 
 			for i in range(count):
-				if card == "" or card == "Deck:" or card == "Decklist:":
+				if card == "" or card == "Deck:" or card == "Decklist:" or card == "Draft":
 					pass
 				else:
 					deck.append(card)
@@ -71,15 +71,15 @@ for each in submissions:
 
 	elif "warlock" in title:
 		if "zoo" in title:
-			db["classes"]["count"]["Warlock"]["Zoolock"] += 1
+			db["classes"]["count"]["Zoolock"] += 1
 			race = "Zoolock"
 					
 		elif "hand" in title:
-			db["classes"]["count"]["Warlock"]["Handlock"] += 1
+			db["classes"]["count"]["Handlock"] += 1
 			race = "Handlock"
 
 		else:
-			db["classes"]["count"]["Warlock"]["Warlock"] += 1
+			db["classes"]["count"]["Warlock"] += 1
 			race = "Warlock"
 
 	elif "priest" in title:
@@ -96,11 +96,11 @@ for each in submissions:
 
 	elif "rogue" in title:
 		if "miracle" in title:
-			db["classes"]["count"]["Rogue"]["Miracle"] += 1
+			db["classes"]["count"]["Miracle"] += 1
 			race = "Miracle"
 
 		else:
-			db["classes"]["count"]["Rogue"]["Rogue"] += 1
+			db["classes"]["count"]["Rogue"] += 1
 			race = "Rogue"
 
 	elif "shaman" in title:
