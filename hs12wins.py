@@ -5,7 +5,7 @@ user_agent = ("HS 12 Wins Stats 0.3 by /u/FanaHOVA "
 			   "github.com/FanaHOVA/HS12WinsLog")
 
 r = praw.Reddit(user_agent=user_agent)
-submissions = r.get_subreddit('12winArenaLog').get_hot(limit=10) #Replace with get_top(limit=3000) to run full script and not just test it
+submissions = r.get_subreddit('12winArenaLog').get_hot(limit=250) #Replace with get_top(limit=3000) to run full script and not just test it
 
 f = open("database.json","r+")
 db = json.load(f)
@@ -72,11 +72,13 @@ for each in submissions:
 	elif "warlock" in title:
 		if "zoo" in title:
 			db["classes"]["count"]["Zoolock"] += 1
-			race = "Zoolock"
+			db["classes"]["count"]["Warlock"] += 1
+			race = "Warlock"
 					
 		elif "hand" in title:
 			db["classes"]["count"]["Handlock"] += 1
-			race = "Handlock"
+			db["classes"]["count"]["Warlock"] += 1
+			race = "Warlock"
 
 		else:
 			db["classes"]["count"]["Warlock"] += 1
@@ -97,7 +99,8 @@ for each in submissions:
 	elif "rogue" in title:
 		if "miracle" in title:
 			db["classes"]["count"]["Miracle"] += 1
-			race = "Miracle"
+			db["classes"]["count"]["Rogue"] += 1
+			race = "Rogue"
 
 		else:
 			db["classes"]["count"]["Rogue"] += 1

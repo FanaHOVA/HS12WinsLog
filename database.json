@@ -1,17 +1,13 @@
-{ 
+{
     "classes": {
         "count": {
-            "Warlock": {
-                "Warlock": 0, 
-                "Handlock": 0, 
-                "Zoolock": 0
-            }, 
+            "Warlock": 0,
+            "Handlock": 0,
+            "Zoolock": 0, 
             "Warrior": 0, 
             "Paladin": 0, 
-            "Rogue": {
-                "Rogue": 0, 
-                "Miracle": 0
-            }, 
+            "Rogue": 0, 
+            "Miracle": 0,
             "Hunter": 0, 
             "Druid": 0, 
             "Priest": 0, 
